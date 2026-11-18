@@ -4,12 +4,42 @@ pipeline{
     stages{
         stage("build"){
             steps{
-                echo "Building Testing app"
+                echo "Building an Application"
+                echo "So the current branch is ${env.BRANCH_NAME}"
             }
         }
-        stage("deploy"){
+        stage("develop"){
+            when {
+                branch "development"
+            }
             steps{
-                echo "Deploying Testing app"
+                echo "This is a development environment"
+            }
+
+        }
+        stage("testing"){
+            when{
+                branch "testing"
+            }
+            steps{
+                echo "This is testing environment"
+            }
+        }
+        stage("feature")
+        {
+            when{
+                branch "feature/login"
+            }
+            steps{
+                echo "This is a feature branch"
+            }
+        }
+        stage("Final"){
+            when{
+                branch "production"
+            }
+            steps{
+                echo "THis is a production environment"
             }
         }
     }
